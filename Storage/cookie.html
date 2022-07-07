@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>存储</title>
+</head>
+<body>
+    <form>
+        <label>用户名</label>
+        <input type="username">
+        <label>密码</label>
+        <input type="password">
+        <input type="checkbox" id="rememberMe">
+        <label for="rememberMe">记住我</label>
+        <input type="submit" value="登录">
+    </form>
+    <script>
+        const username = document.querySelector('input[type="username"]');
+        const checkbox = document.querySelector('input[type="checkbox"]');
+        const submit = document.querySelector('input[type="submit"]'); 
+        let array = document.cookie.split('; ')[0].split('=')
+        let cookie = {};
+        for(let i=0; i<array.length;i++){
+            let name = array[i];
+            let value = array[i];
+            cookie[name] = decodeURIComponent(value);
+        }
+
+        if(document.cookie){
+            username.value = cookie.username;
+            checkbox.checked = true;
+        }
+    
+        console.log(cookie)
+        submit.addEventListener('click',e=>{
+            if(checkbox.checked && username.value != ''){
+                let key = 'leoname';
+                let value = encodeURIComponent(username.value);//编码可以避免那些空格影响
+                let twoDays = 2 * 24 * 60 * 60;
+                document.cookie =`${key}=${value}; max-age=${twoDays}`;
+            }
+            e.preventDefault();//由于submit会自动刷新页面，可以设置阻止冒泡来阻止刷新
+        })
+    </script>
+</body>
+</html>

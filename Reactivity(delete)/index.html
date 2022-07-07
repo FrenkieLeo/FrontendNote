@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>响应式原理</title>
+</head>
+<body>
+    <div id="app">
+        <span>up主：{{ name }}</span>
+        <input type="text" v-model="name">
+        <span>更多：{{more.like}}</span>
+        <input type="text" v-model="more.like">
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+
+        const vm = new Vue({
+            el:'app',
+            data:{
+                name:'frenkie',
+                more:{ 
+                    like:'一键三连'
+                }
+            }
+        })
+        console.log('vm',vm);
+    </script>
+
+</body>
+</html>
+
+<!-- 
+     设计思路：获取页面数据-放入临时的内存区域（虚拟dom）- 应用Vue数据 - 渲染页面
+ -->

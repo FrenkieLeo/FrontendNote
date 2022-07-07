@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>队列</title>
+</head>
+<body>
+    <!-- 用两个栈实现队列 -->
+    <script>
+        var CQueue = function() {
+        this.inStack = [];
+        this.outStack = [];
+    };
+
+    CQueue.prototype.appendTail = function(value) {
+        this.inStack.push(value);
+    };
+
+    CQueue.prototype.deleteHead = function() {
+        if (!this.outStack.length) {
+            if (!this.inStack.length) {
+                return -1;
+            }
+            this.in2out();
+        }
+        return this.outStack.pop();
+    };
+
+    CQueue.prototype.in2out = function() {
+        while (this.inStack.length) {
+            this.outStack.push(this.inStack.pop());
+        }
+    };
+
+    var obj = new CQueue()
+    obj.appendTail(3)
+    obj.deleteHead()
+    var param_2 = obj.deleteHead()
+    console.log(param_2)
+
+
+    </script>
+    
+</body>
+</html>

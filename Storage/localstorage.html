@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalStorage
+    </title>
+</head>
+<body>
+    <input type="text">
+    <section><ul class="history"></ul></section>
+    <button>搜索</button>
+
+    <script>
+
+        /*
+        SessionStorage 和 LocalStorage 是完全一样的用法
+        */ 
+        const input = document.querySelector('input[type="text"]')
+        const button = document.querySelector('button');
+        const history = document.querySelector('.history')
+        if(localStorage.length > 0){
+            for(let i=0;i< localStorage.length; i++){
+                let key = localStorage.key(i);
+                addElement(key)
+            }
+        }
+        button.addEventListener('click',()=>{
+            if(input.value){
+                let key = new Date().valueOf()
+                let value = input.value;
+                localStorage.setItem(key,value);
+                input.value = '';
+                addElement(key)
+
+            }
+        })
+
+        function addElement(key){
+            let li = document.createElement('li');
+            // 利用createTextNode将数据放到li中。
+            let liText = document.createTextNode(localStorage.getItem(key));
+            
+            
+            li.appendChild(liText);
+            history.appendChild(li);
+            let close = document.createElement('div');
+            close.setAttribute('style',"border:1px solid #333; float:left;")
+            let closeText= document.createTextNode('关')
+            close.appendChild(closeText)
+            
+            close.addEventListener('click',()=>{
+                localStorage.removeItem(key)
+                li.parentNode.removeChild(li)
+            })
+
+            li.append(close);
+            return history
+        }
+    </script>
+</body>
+<style>
+    div{
+        display:block;
+        float: right;
+        width: 1em;
+    }
+</style>
+</html>

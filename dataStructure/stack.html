@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stack封装
+    </title>
+</head>
+<body>
+    <!-- 最小函数栈
+    <script>
+        
+        var MinStack = function() {
+        this.dataStack = [];
+        this.minStack = [];
+        };
+        
+        
+        MinStack.prototype.push = function(x) {
+            this.dataStack.push(x);
+            if( this.minStack.length == 0 || x <  this.minStack[this.minStack.length-1] )
+            {
+                this.minStack.push(x);
+            }
+            else{
+                this.minStack.push(this.minStack[this.minStack.length-1]);
+            }
+        };
+        
+        
+        MinStack.prototype.pop = function() {
+            this.dataStack.pop();
+            this.minStack.pop();
+        };
+        
+        
+        MinStack.prototype.top = function() {
+            return this.dataStack[this.dataStack.length-1];
+        };
+        
+        
+        MinStack.prototype.min = function() {
+            return  this.minStack[this.minStack.length-1];    
+        };
+
+        let ms = new MinStack()
+        ms.push(3)
+        ms.push(2)
+        ms.push(4)
+
+        console.log(ms.dataStack)
+        console.log(ms.minStack)
+
+
+    </script>
+     -->
+
+     <script>
+        var s = "([)]{}"
+        var isValid = function(s) {
+            
+            const n = s.length;
+            if (n % 2 === 1) {
+                return false;
+            }
+            const pairs = new Map([
+                [')', '('],
+                [']', '['],
+                ['}', '{']
+            ]);
+            const stk = [];
+            debugger
+            for (let ch of s){
+                if (pairs.has(ch)) {
+                    if (!stk.length || stk[stk.length - 1] !== pairs.get(ch)) {
+                        // 如果stk压根没有元素，也就是键没有被存过，那么就肯定是false
+                        // 另外，如果stk栈顶的元素（只能是栈顶，因为必须相邻）与ch这个值所对应的键不同的话，也是false，
+                        // 除此之外，匹配完成就弹出来，直到最后stk空了，代表全部都能匹配完成，则为true
+                        return false;
+                    }
+                    stk.pop();
+                } 
+                else {
+                    // 利用key和value，平行排布，有一个（那就一定需要有一个）在后面等着他，但因为pairs.has(ch)是检查key是否在的，所以要调换一下顺序
+                    stk.push(ch);
+                }
+            };
+            return !stk.length;
+        };
+        console.log(isValid(s))
+     </script>
+</body>
+
+</html>
